@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SMEC Eventos - Scanner V5</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="card">
+      <header>
+        <h1>SMEC Eventos</h1>
+        <p class="sub">Scanner rápido com cache local e modo offline</p>
+      </header>
+
+      <section id="loginBox" class="panel">
+        <h2>Operador</h2>
+        <input id="apiUrl" placeholder="URL /exec do Apps Script">
+        <div class="row">
+          <input id="operador" placeholder="Operador. Ex.: recepcao">
+          <input id="pin" type="password" placeholder="PIN">
+          <button class="btn neutral" onclick="login()">Entrar</button>
+        </div>
+        <p class="muted">Padrão inicial: recepcao / 2026 ou admin / 1234. Altere na aba Operadores.</p>
+      </section>
+
+      <section id="scannerBox" class="hidden">
+        <div class="topbar">
+          <div><b id="opNome"></b><br><span id="cacheInfo" class="muted"></span></div>
+          <div><span id="offlineBadge" class="badge">Online</span> <span id="filaBadge" class="badge">Fila: 0</span></div>
+        </div>
+
+        <div class="toolbar">
+          <select id="cameraSelect"></select>
+          <button class="btn neutral" onclick="iniciarScanner()">Iniciar</button>
+          <button class="btn danger" onclick="pararScanner()">Parar</button>
+          <button class="btn neutral" onclick="atualizarCache()">Atualizar cache</button>
+          <button class="btn ok" onclick="sincronizarFila()">Sincronizar fila</button>
+        </div>
+
+        <div id="reader" class="reader"></div>
+
+        <div class="manual">
+          <p>Digitação manual</p>
+          <input id="codigoManual" placeholder="Ex.: JPP2026-0001" onkeydown="if(event.key==='Enter') lerManual()">
+          <button class="btn ok" onclick="lerManual()">Registrar manualmente</button>
+        </div>
+
+        <div id="resultado" class="resultado aguardando">
+          <div class="big">Aproxime o QR Code</div>
+        </div>
+      </section>
+
+      <footer>Funciona em vários notebooks/celulares ao mesmo tempo. Offline: registra localmente e sincroniza depois.</footer>
+    </section>
+  </main>
+
+  <script src="scanner.js"></script>
+</body>
+</html>
